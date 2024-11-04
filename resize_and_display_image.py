@@ -34,3 +34,4 @@ def update_image_size(event, frame, label):
     tk_image = ImageTk.PhotoImage(resized_image)
     label.configure(image=tk_image)
     label.image = tk_image
+    

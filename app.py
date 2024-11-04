@@ -7,3 +7,4 @@ if __name__ == "__main__":
     settings_frame = interface_settings.add_settings()
     app.mainloop()
 
+
