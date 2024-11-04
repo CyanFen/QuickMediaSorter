@@ -53,3 +53,4 @@ def create_binding_row(destinations_frame):
 if __name__ == "__main__":
     settings_frame = add_settings()
     settings_frame.mainloop()
+    

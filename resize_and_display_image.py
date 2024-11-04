@@ -8,7 +8,6 @@ image_width, image_height = image_pil.size
 
 
 
-
 # Function to resize the image to fit the label dimensions without clipping
 def resize_image(frame_width, frame_height):
     # Calculate the new size while preserving the aspect ratio

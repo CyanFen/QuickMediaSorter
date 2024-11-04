@@ -25,3 +25,4 @@ def on_key_press(event):
         # Set the character on the active button
         active_button.configure(text=char)
         active_button = None
+        

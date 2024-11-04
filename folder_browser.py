@@ -22,4 +22,3 @@ def folder_browse(button, text, input):
     
     #button.configure(text=folder)
     
-   

@@ -65,4 +65,4 @@ def create_image_display_elements(master_frame):
 if __name__ == "__main__":
     app = create_app()
     app.mainloop()
-    
+
