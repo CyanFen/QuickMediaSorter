@@ -2,6 +2,7 @@ import customtkinter as ctk
 from interface_image_display import app, master_frame
 import button_binding
 import folder_browser
+import button_click_handler
 
 input_folder = None
 
@@ -44,10 +45,15 @@ def create_binding_row(destinations_frame):
         destination_browse_button = ctk.CTkButton(destinations_frame, text="Select folder to bind", font=("arial", 16))
         destination_browse_button.grid(column=1, row=row_counter, padx=(0,20), pady=20, sticky="w")
         destination_browse_button.configure(command=lambda button=destination_browse_button: folder_browser.folder_browse(button, "Select folder to bind key to...", False))
+        
+        button_binding.binding_path_buttons_dictionary[destination_binding_button] = destination_browse_button
     
         row_counter += 1
     
         button_binding.bound_buttons.extend([destination_binding_button])  # Add to bound_buttons list in button_binding.py
+    print("Binding Buttons Dictionary:")
+    for binding_button, browse_button in button_binding.binding_path_buttons_dictionary.items():
+        print(f"{id(binding_button)}: {id(browse_button)}")
             
 # Run the app
 if __name__ == "__main__":

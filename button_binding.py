@@ -1,6 +1,11 @@
 active_button = None
 bound_buttons = []
 
+binding_path_buttons_dictionary = {}
+binding_dictionary = {}
+path_dictionary = {}
+
+
 def on_button_click(button, frame):
     print("button clicked")
     global active_button
@@ -13,7 +18,7 @@ def on_key_press(event):
     global active_button
     
     # Capitalize given character if it is lowercase
-    if active_button:
+    if active_button: #refers to the button object
         char = event.char.upper() if event.char.islower() else event.char  # Capitalize if lowercase
         
         if bound_buttons:
@@ -25,5 +30,19 @@ def on_key_press(event):
         # Set the character on the active button
         active_button.configure(text=char)
         active_button = None
+    
+    else:
+        print(event)    
         
         
+def button_event_handler():
+    global binding_path_buttons_dictionary, binding_dictionary, path_dictionary
+    
+    if active_button in binding_path_buttons_dictionary:
+            print("BINDING BUTTON")
+            # Update binding_buttons_dictionary
+            binding_path_buttons_dictionary[char] = binding_path_buttons_dictionary.pop(active_button)
+            print(binding_path_buttons_dictionary)
+        
+    if active_button in binding_path_buttons_dictionary.values():    
+            print("PATH BUTTON")

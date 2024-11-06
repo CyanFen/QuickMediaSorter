@@ -1,5 +1,5 @@
 from tkinter import filedialog
-
+from input_scan import input_scan
 
 input_path = None
 
@@ -12,6 +12,7 @@ def folder_browse(button, text, input):
     if folder:
         if input == True:
             input_path = folder
+            input_scan(input_path)
             return input_path
         else:
             button.configure(text=folder)
