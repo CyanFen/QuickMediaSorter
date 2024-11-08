@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from resize_and_display_image import image_name, image_path, update_image_size
-import button_binding
+import key_press
 
 app = None
 master_frame = None
@@ -19,7 +19,7 @@ def create_app():
     app.grid_columnconfigure(0, weight=1)
     app.grid_rowconfigure(0, weight=1)
     app.after(0, lambda: app.state('zoomed'))
-    app.bind("<KeyPress>", button_binding.on_key_press)
+    app.bind("<KeyPress>", key_press.key_pressed)
 
     create_master_frame(app)
     
@@ -74,6 +74,15 @@ def set_image(path, name):
     image_name_label.configure(text=image_name)
     
     update_image_size(None, image_display_frame, image_display_label, image_path, image_name)
+    
+def clear_image():
+    global image_name_label, image_display_label
+    image_name_label.configure(text="Finished! Select another folder to sort additional images")
+    image_display_label.configure(image="")
+    
+
+    
+    
 
 
 

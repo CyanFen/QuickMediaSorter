@@ -1,10 +1,12 @@
 import customtkinter as ctk
 from interface_image_display import app, master_frame
-import button_binding
 import folder_browser
 import button_click_handler
+from sqlite_module import cursor
 
 input_folder = None
+
+remember_settings = False
 
 keybind_count = 6 # Number of keybinds to add
 row_counter = 0 # Incremented value when a new row is added up to keybind_count
@@ -37,23 +39,43 @@ def add_settings():
 
 def create_binding_row(destinations_frame):
     global keybind_count, row_counter
+    
+    if remember_settings == False:
+        cursor.execute('''DELETE FROM buttons''')
+    
     while row_counter < keybind_count:
         destination_binding_button = ctk.CTkButton(destinations_frame, height=30, width=30, text="")
         destination_binding_button.grid(column=0, row=row_counter, padx=(10,10), pady=20)
-        destination_binding_button.configure(command=lambda button=destination_binding_button: button_binding.on_button_click(button, destinations_frame))
+        destination_binding_button.configure(command=lambda button=destination_binding_button: button_click_handler.button_clicked(button))
         
         destination_browse_button = ctk.CTkButton(destinations_frame, text="Select folder to bind", font=("arial", 16))
         destination_browse_button.grid(column=1, row=row_counter, padx=(0,20), pady=20, sticky="w")
-        destination_browse_button.configure(command=lambda button=destination_browse_button: folder_browser.folder_browse(button, "Select folder to bind key to...", False))
+        destination_browse_button.configure(command=lambda button=destination_browse_button: button_click_handler.button_clicked(button))
         
-        button_binding.binding_path_buttons_dictionary[destination_binding_button] = destination_browse_button
+        button_click_handler.binding_dictionary[id(destination_binding_button)] = destination_binding_button
+        button_click_handler.path_dictionary[id(destination_browse_button)] = destination_browse_button
+        
+        
+        # Assign relevent values to a list to feed into buttons.db
+        values = (row_counter, id(destination_binding_button), id(destination_browse_button), None, None)
     
+        cursor.execute('''
+            INSERT INTO buttons (id, binding_button, path_button, binding, path)
+            VALUES (?, ?, ?, ?, ?)
+        ''', values)  
+
+        # Increment row_counter for next loop step
         row_counter += 1
     
-        button_binding.bound_buttons.extend([destination_binding_button])  # Add to bound_buttons list in button_binding.py
-    print("Binding Buttons Dictionary:")
-    for binding_button, browse_button in button_binding.binding_path_buttons_dictionary.items():
-        print(f"{id(binding_button)}: {id(browse_button)}")
+    # Debug - print out buttons.db
+    cursor.execute("SELECT * FROM buttons")
+
+    rows = cursor.fetchall()
+
+    for row in rows:
+        print(f"ID: {row[0]}, binding_button: {row[1]}, path_button: {row[2]}, binding: {row[3]}, path: {row[4]}")  
+    # End debug
+    
             
 # Run the app
 if __name__ == "__main__":

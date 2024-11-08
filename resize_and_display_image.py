@@ -31,9 +31,10 @@ def resize_image(frame_width, frame_height):
 # Bind the resize event to dynamically adjust the image size
 def update_image_size(event, frame, label, path, name):
     global image_path, image_name
+    image_path = path
+    image_name = name
     if image_path:
-        image_path = path
-        image_name = name
+        
         # Get current dimensions the image display frame
         frame_width = frame.winfo_width()
         frame_height = frame.winfo_height()
