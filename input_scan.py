@@ -23,6 +23,7 @@ def input_scan(path):
             return
         else:
             clear_image()
+            print ("Cleared image and reset")
     
     # Return none if no matching files are found
     return None
