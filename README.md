@@ -1,10 +1,6 @@
-#########################
-This program allows you 
-to sort media by pressing 
-keys. Both keys and 
-destination paths are 
-fully configurable
-#########################
+#############################################################################################################################
+This program allows you to sort media by pressing keys. Both keys and destination paths are fully configurable
+#############################################################################################################################
 
 #########################
           USAGE
